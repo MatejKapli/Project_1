@@ -48,7 +48,7 @@ def login():
     password = input("Zadejte heslo: ")
 
     if username in users and users[username] == password:
-        print(f"nAhoj {username}, vítejte zpět!")
+        print(f"Ahoj {username}, vítejte zpět!")
         analyze_texts()
     else:
         print("Uživatel neexistuje nebo špatné heslo. Program bude ukončen.")
@@ -90,5 +90,19 @@ def analyze_texts():
     print(f"Počet čísel: {numeric_count}")
     print(f"Součet všech čísel: {numeric_sum}")
 
+# Sloupcový graf podle délky slov
+    print("\n--- GRAF DÉLKY SLOV ---")
+    word_lengths = {}
+
+    for word in words:
+        length = len(word)
+        if length not in word_lengths:
+            word_lengths[length] = 1
+        else:
+            word_lengths[length] += 1
+
+    for length in sorted(word_lengths):
+        count = word_lengths[length]
+        print(f"{length:>2}|{'*' * count:<20}|{count}")
 # Spuštění programu
 login()
