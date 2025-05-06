@@ -48,7 +48,7 @@ def login():
     password = input("Zadejte heslo: ")
 
     if username in users and users[username] == password:
-        print(f"Ahoj {username}, vítejte zpět!")
+        print(f"nAhoj {username}, vítejte zpět!")
         analyze_texts()
     else:
         print("Uživatel neexistuje nebo špatné heslo. Program bude ukončen.")
@@ -71,12 +71,24 @@ def analyze_texts():
         return
 
     selected_text = TEXTS[choice - 1]
-    print("\nVybraný text:")
-    print(selected_text)
+    words = [word.strip(".,!?") for word in selected_text.split()]
 
-    # Jednoduchá analýza textu - počet slov
-    word_count = len(selected_text.split())
-    print(f"\nText obsahuje {word_count} slov.")
+    # Statistická analýza
+    word_count = len(words)
+    titlecase_count = sum(1 for word in words if word.istitle())
+    uppercase_count = sum(1 for word in words if word.isupper() and word.isalpha())
+    lowercase_count = sum(1 for word in words if word.islower())
+    numeric_count = sum(1 for word in words if word.isdigit())
+    numeric_sum = sum(int(word) for word in words if word.isdigit())
+
+    # Výstup
+    print("\n--- ANALÝZA TEXTU ---")
+    print(f"Počet slov: {word_count}")
+    print(f"Počet slov začínajících velkým písmenem: {titlecase_count}")
+    print(f"Počet slov psaných velkými písmeny: {uppercase_count}")
+    print(f"Počet slov psaných malými písmeny: {lowercase_count}")
+    print(f"Počet čísel: {numeric_count}")
+    print(f"Součet všech čísel: {numeric_sum}")
 
 # Spuštění programu
 login()
